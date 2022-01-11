@@ -28,6 +28,9 @@ export const useTypography = makeStyles(theme => ({
     rem7: {
         fontSize: '.7rem !important'
     },
+    rem75: {
+        fontSize: '.75rem !important'
+    },
     rem8: {
         fontSize: '.8rem !important'
     },

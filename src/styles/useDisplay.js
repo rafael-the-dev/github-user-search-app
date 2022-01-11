@@ -182,7 +182,7 @@ export const useDisplay = makeStyles(theme => ({
     pr3: {
         paddingRight: '3rem !important'
     },
-    px5: {
+    px: {
         paddingLeft: '5% !important',
         paddingRight: '5% !important'
     },

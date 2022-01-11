@@ -53,6 +53,23 @@ const Home = () => {
                             <Typography variant="body2">Joined 25 Jan 2011</Typography>
                         </div>
                     </div>
+                    <Typography variant="body2" className={classNames(display.mt2)}>
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
+                    </Typography>
+                    <div className={classNames(display.flex, display.justifyBetween, display.mt1, classes.panel)}>
+                        <Typography variant="body2" className={classNames(display.flex, display.flexColumn, display.alignCenter)}>
+                            <span>Repos</span>
+                            <span className={classNames(text.font7, display.mt1, classes.panelValue)}>8</span>
+                        </Typography>
+                        <Typography variant="body2" className={classNames(display.flex, display.flexColumn, display.alignCenter)}>
+                            <span>Followers</span>
+                            <span className={classNames(text.font7, display.mt1, classes.panelValue)}>3938</span>
+                        </Typography>
+                        <Typography variant="body2" className={classNames(display.flex, display.flexColumn, display.alignCenter)}>
+                            <span>Following</span>
+                            <span className={classNames(text.font7, display.mt1, classes.panelValue)}>9</span>
+                        </Typography>
+                    </div>
                 </Paper>
             </main>
         </div>

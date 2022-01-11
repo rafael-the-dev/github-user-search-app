@@ -1,12 +1,15 @@
 import { makeStyles } from "@mui/styles";
+import { colors } from '../../styles/colors';
+
+const  { lightGrey } = colors;
 
 export const useStyles = makeStyles(theme => ({
     main: {
         backgroundColor: '#F2F2F2'
     },
     px: {
-        paddingLeft: '3% !important',
-        paddingRight: '3% !important'
+        paddingLeft: '4% !important',
+        paddingRight: '4% !important'
     },
     defaultBorderRadius: {
         borderRadius: '14px !important',
@@ -21,5 +24,13 @@ export const useStyles = makeStyles(theme => ({
     avatarRoot: {
         height: '60px !important',
         width: '60px !important'
+    },
+    panel: {
+        background: lightGrey,
+        borderRadius: 10,
+        padding: '1rem 31px',
+    },
+    panelValue: {
+        fontSize: '1rem'
     }
 }));

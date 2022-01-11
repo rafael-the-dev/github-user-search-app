@@ -1,5 +1,6 @@
-import { Button, Typography } from '@mui/material'
+import { Button, IconButton, Paper, Typography } from '@mui/material'
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import SearchIcon from '@mui/icons-material/Search';
 import { useDisplay } from '../../styles';
 import classNames from 'classnames'
 
@@ -14,6 +15,18 @@ const Home = () => {
                     Dark
                 </Button>
             </header>
+            <main className={classNames(display.pt2)}>
+                <Paper component="form" className={classNames(display.alignCenter, display.flex)}>
+                    <IconButton>
+                        <SearchIcon />
+                    </IconButton>
+                    <input 
+                        className={classNames(display.borderNone, display.flexGrow1, display.outlineNone)}
+                        placeholder="Search GitHub username…"
+                    />
+                    <Button variant="contained">Search</Button>
+                </Paper>
+            </main>
         </div>
     )
 };

@@ -5,7 +5,11 @@ const  { blue, dark1, darkLightGrey, lightGrey } = colors;
 
 export const useStyles = makeStyles(theme => ({
     main: {
-        backgroundColor: '#F2F2F2'
+        backgroundColor: '#F2F2F2',
+        minHeight: '100vh',
+        [theme.breakpoints.up('md')]: {
+            paddingTop: '3rem !important'
+        }
     },
     px: {
         paddingLeft: '5% !important',
@@ -16,14 +20,28 @@ export const useStyles = makeStyles(theme => ({
     },
     form: {
         paddingBottom: '8px !important',
-        paddingTop: '8px !important'
+        paddingTop: '8px !important',
+        [theme.breakpoints.up('md')]: {
+            paddingRight: '10px !important'
+        }
+    },
+    input: {
+        fontSize: '1.02rem'
     },
     formSearchButton: {
         borderRadius: '10px !important',
+        [theme.breakpoints.up('md')]: {
+            padding: '10px 16px !important'
+        }
     },
     avatarRoot: {
         height: '60px !important',
-        width: '60px !important'
+        width: '60px !important',
+        [theme.breakpoints.up('md')]: {
+            height: '140px !important',
+            marginRight: '5%',
+            width: '140px !important'
+        }
     },
     lightText: {
         color: `${darkLightGrey} !important`,
@@ -48,9 +66,18 @@ export const useStyles = makeStyles(theme => ({
     panelValue: {
         fontSize: '1.02rem'
     },
+    detailsList: {
+        [theme.breakpoints.up('sm')]: {
+            display: 'flex',
+            flexWrap: 'wrap'
+        }
+    },
     listItemButton: {
         '&:hover': {
             backgroundColor: 'transparent !important'
+        },
+        [theme.breakpoints.up('sm')]: {
+            width: '50%'
         }
     },
     listIcon: {

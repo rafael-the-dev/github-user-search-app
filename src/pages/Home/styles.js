@@ -28,6 +28,9 @@ export const useStyles = makeStyles(theme => ({
     input: {
         fontSize: '1.02rem'
     },
+    errorMessage: {
+        color: '#dd0e0e'
+    },
     formSearchButton: {
         borderRadius: '10px !important',
         [theme.breakpoints.up('md')]: {
@@ -82,5 +85,9 @@ export const useStyles = makeStyles(theme => ({
     },
     listIcon: {
         minWidth: '43px !important'
+    },
+    userNotFoundAvatar: {
+        height: '170px !important',
+        width: '170px !important'
     }
 }));

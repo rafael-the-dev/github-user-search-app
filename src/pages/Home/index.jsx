@@ -12,6 +12,7 @@ import { useCallback, useContext, useRef } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { ThemeContext } from '../../context/ThemeContext';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import CircularProgress from '@mui/material/CircularProgress';
 import moment from 'moment';
 
 const Home = () => {
@@ -21,7 +22,7 @@ const Home = () => {
     const responsive = useResponsive();
     const text = useTypography();
 
-    const { fetchUser, getUser } = useContext(AppContext);
+    const { fetchUser, getUser, isLoading, isUserNotFound } = useContext(AppContext);
     const { isLightTheme, toggleTheme } = useContext(ThemeContext)
     const inputRef = useRef(null);
 
@@ -31,7 +32,6 @@ const Home = () => {
     }, [ fetchUser ]);
     //console.log()
 
-    const validator = useCallback((success, failure) => Boolean(getUser()) ? success : failure, [ getUser ]);
     const getJoinedDate = useCallback(stringifiedDate => {
         const date = moment(stringifiedDate).format("DD MMM YYYY");
         return date;
@@ -67,14 +67,15 @@ const Home = () => {
                         placeholder="Search GitHub username…"
                         ref={inputRef}
                     />
+                    { isUserNotFound && <label className={classNames(classes.errorMessage, display.mr1)}>No results</label> }
                     <Button 
                         type="submit"
                         className={classNames(classes.formSearchButton, text.rem75)}
                         variant="contained">
-                        Search
+                        { isLoading ? <CircularProgress className={classNames(text.textLight)} size={20} /> : 'Search' }
                     </Button>
                 </Paper>
-                <Paper className={classNames(display.mt2, classes.px, classes.defaultBorderRadius, display.pt1, 
+                { !isUserNotFound && <Paper className={classNames(display.mt2, classes.px, classes.defaultBorderRadius, display.pt1, 
                     display.pb2, 'theme-background-color', display.flex)}>
                     <Hidden mdDown>
                         <Avatar
@@ -99,7 +100,7 @@ const Home = () => {
                                         component="h2" 
                                         variant="h6" 
                                         className={classNames(text.font7, classes.dark1Text, 'theme-text')}>
-                                        { getUser().name }
+                                        { Boolean(getUser().name) ? getUser().name : 'Not available' }
                                     </Typography>
                                     <Typography 
                                         gutterBottom 
@@ -181,6 +182,23 @@ const Home = () => {
                         </List>
                     </div>
                 </Paper>
+                }
+                { isUserNotFound && (
+                    <Paper className={classNames(display.mt2, classes.px, classes.defaultBorderRadius, display.pt1, 
+                        display.pb2, 'theme-background-color', display.flex, display.flexColumn, display.alignCenter)}>
+                            <Avatar 
+                                src="https://techcrunch.com/wp-content/uploads/2010/07/github-logo.png"
+                                alt="user not found" 
+                                classes={{ root: classNames(classes.userNotFoundAvatar)}}
+                            />
+                            <Typography 
+                                component="h2" 
+                                variant="h5" 
+                                className={classNames(text.font7, 'theme-text', display.mt1)}>
+                                User not found
+                            </Typography>
+                    </Paper>
+                )}
             </main>
         </div>
     )

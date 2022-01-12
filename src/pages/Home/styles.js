@@ -26,7 +26,10 @@ export const useStyles = makeStyles(theme => ({
         width: '60px !important'
     },
     lightText: {
-        color: `${darkLightGrey} !important`
+        color: `${darkLightGrey} !important`,
+        '.dark-theme &': {
+            opacity: .87
+        }
     },
     blueText: {
         color: `${blue} !important`

@@ -12,6 +12,7 @@ import { useCallback, useContext, useRef } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { ThemeContext } from '../../context/ThemeContext';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import moment from 'moment';
 
 const Home = () => {
     const bg = useBackground();
@@ -20,7 +21,7 @@ const Home = () => {
     const responsive = useResponsive();
     const text = useTypography();
 
-    const { fetchUser } = useContext(AppContext);
+    const { fetchUser, getUser } = useContext(AppContext);
     const { isLightTheme, toggleTheme } = useContext(ThemeContext)
     const inputRef = useRef(null);
 
@@ -29,6 +30,12 @@ const Home = () => {
         fetchUser(inputRef.current.value)
     }, [ fetchUser ]);
     //console.log()
+
+    const validator = useCallback((success, failure) => Boolean(getUser()) ? success : failure, [ getUser ]);
+    const getJoinedDate = useCallback(stringifiedDate => {
+        const date = moment(stringifiedDate).format("DD MMM YYYY");
+        return date;
+    }, []);
 
     return (
         <div className={classNames(display.alignStretch, display.flex, display.flexColumn, display.px, display.pt1,
@@ -72,7 +79,7 @@ const Home = () => {
                     <Hidden mdDown>
                         <Avatar
                             classes={{ root: classNames(classes.avatarRoot)}}
-                            src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
+                            src={ getUser().avatar_url}
                             alt="profile"
                         />
                     </Hidden>
@@ -81,43 +88,53 @@ const Home = () => {
                             <Hidden mdUp>
                                 <Avatar
                                     classes={{ root: classNames(classes.avatarRoot)}}
-                                    src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
+                                    src={ getUser().avatar_url}
                                     alt="profile"
                                 />
                             </Hidden>
-                            <div className={classNames(display.flex, display.flexColumn, display.ml1, responsive.mdMl0)}>
-                                <Typography 
-                                    component="h2" 
-                                    variant="h6" 
-                                    className={classNames(text.font7, classes.dark1Text, 'theme-text')}>
-                                    The Octocat
-                                </Typography>
-                                <Typography 
-                                    gutterBottom 
-                                    className={classNames(text.rem9, classes.blueText)}>
-                                    @octocat
-                                </Typography>
+                            <div className={classNames(display.flex, display.flexColumn, display.ml1, 
+                                responsive.mdMl0, responsive.mdRow, display.justifyBetween, display.w100)}>
+                                <div className={classNames(display.flex, display.flexColumn)}>
+                                    <Typography 
+                                        component="h2" 
+                                        variant="h6" 
+                                        className={classNames(text.font7, classes.dark1Text, 'theme-text')}>
+                                        { getUser().name }
+                                    </Typography>
+                                    <Typography 
+                                        gutterBottom 
+                                        className={classNames(text.rem9, classes.blueText)}>
+                                        @{ getUser().login}
+                                    </Typography>
+                                </div>
                                 <Typography variant="body2" className={classNames(classes.lightText, 'theme-text')}>
-                                    Joined 25 Jan 2011
+                                Joinded { getJoinedDate(getUser().created_at) }
                                 </Typography>
                             </div>
                         </div>
-                        <Typography variant="body2" className={classNames(display.mt2, text.rem9, classes.lightText, 'theme-text')}>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.
+                        <Typography variant="body2" className={classNames(display.mt2, text.rem9, classes.lightText, 
+                            'theme-text', responsive.mdMt1)}>
+                            { Boolean(getUser().bio) ? getUser().bio : 'This profile has no bio' }
                         </Typography>
                         <div className={classNames(display.flex, display.justifyBetween, display.mt2, classes.panel,
                             'theme-sub-background-color')}>
                             <Typography variant="body2" className={classNames(display.flex, display.flexColumn, display.alignCenter)}>
                                 <span className={classNames(classes.lightText, 'theme-text')}>Repos</span>
-                                <span className={classNames(text.font7, display.mt1, classes.panelValue, classes.dark1Text, 'theme-text')}>8</span>
+                                <span className={classNames(text.font7, display.mt1, classes.panelValue, classes.dark1Text, 'theme-text')}>
+                                { getUser().public_repos}
+                                </span>
                             </Typography>
                             <Typography variant="body2" className={classNames(display.flex, display.flexColumn, display.alignCenter)}>
                                 <span className={classNames(classes.lightText, 'theme-text')}>Followers</span>
-                                <span className={classNames(text.font7, display.mt1, classes.panelValue, classes.dark1Text, 'theme-text')}>3938</span>
+                                <span className={classNames(text.font7, display.mt1, classes.panelValue, classes.dark1Text, 'theme-text')}>
+                                { getUser().followers }
+                                </span>
                             </Typography>
                             <Typography variant="body2" className={classNames(display.flex, display.flexColumn, display.alignCenter)}>
                                 <span className={classNames(classes.lightText, 'theme-text')}>Following</span>
-                                <span className={classNames(text.font7, display.mt1, classes.panelValue, classes.dark1Text, 'theme-text')}>9</span>
+                                <span className={classNames(text.font7, display.mt1, classes.panelValue, classes.dark1Text, 'theme-text')}>
+                                    { getUser().following }
+                                </span>
                             </Typography>
                         </div>
                         <List  disablePadding className={classNames(display.mt2, classes.detailsList)}>
@@ -128,7 +145,7 @@ const Home = () => {
                                 <ListItemText 
                                     classes={{ primary: text.rem9}} 
                                     className={classNames(classes.lightText, 'theme-text')} 
-                                    primary="San Francisco" 
+                                    primary={ Boolean(getUser().location) ? getUser().location : "Not Available"}
                                 />
                             </ListItemButton>
                             <ListItemButton component="li" className={classNames(display.pl0, classes.listItemButton)}>
@@ -138,7 +155,7 @@ const Home = () => {
                                 <ListItemText 
                                     classes={{ primary: text.rem9}} 
                                     className={classNames(classes.lightText, 'theme-text')} 
-                                    primary="https://github.blog" 
+                                    primary={ getUser().html_url }
                                 />
                             </ListItemButton>
                             <ListItemButton component="li" className={classNames(display.pl0, classes.listItemButton)}>
@@ -148,7 +165,7 @@ const Home = () => {
                                 <ListItemText 
                                     classes={{ primary: text.rem9}} 
                                     className={classNames(classes.lightText, 'theme-text')} 
-                                    primary="Not Available" 
+                                    primary={ Boolean(getUser().twitter_username) ? getUser().twitter_username : "Not Available" }
                                 />
                             </ListItemButton>
                             <ListItemButton component="li" className={classNames(display.pl0, classes.listItemButton)}>
@@ -158,7 +175,7 @@ const Home = () => {
                                 <ListItemText 
                                     classes={{ primary: text.rem9}} 
                                     className={classNames(classes.lightText, 'theme-text')} 
-                                    primary="@github" 
+                                    primary={ Boolean(getUser().company) ? `@${getUser().company}` : "Not Available" }
                                 />
                             </ListItemButton>
                         </List>

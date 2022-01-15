@@ -69,7 +69,9 @@ const Home = () => {
                         placeholder="Search GitHub username…"
                         ref={inputRef}
                     />
+                    <Hidden smDown>
                     { isUserNotFound && <label className={classNames(classes.errorMessage, display.mr1)}>No results</label> }
+                    </Hidden>
                     <IconButton 
                         type="submit" 
                         variant="contained"

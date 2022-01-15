@@ -30,8 +30,18 @@ export const useStyles = makeStyles(theme => ({
     errorMessage: {
         color: '#dd0e0e'
     },
+    formSearchIconButton: {
+        backgroundColor: '#1976d2 !important',
+        [theme.breakpoints.up(400)]: {
+            display: 'none !important'
+        }
+    },
     formSearchButton: {
         borderRadius: '10px !important',
+        display: 'none',
+        [theme.breakpoints.up(400)]: {
+            display: 'inline-block !important'
+        },
         [theme.breakpoints.up('md')]: {
             padding: '10px 16px !important'
         }

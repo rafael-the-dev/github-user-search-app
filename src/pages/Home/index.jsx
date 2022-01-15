@@ -70,11 +70,17 @@ const Home = () => {
                         ref={inputRef}
                     />
                     { isUserNotFound && <label className={classNames(classes.errorMessage, display.mr1)}>No results</label> }
+                    <IconButton 
+                        type="submit" 
+                        variant="contained"
+                        className={classNames(classes.formSearchIconButton, text.rem75)}>
+                        <SearchIcon classes={{ root: classNames(text.textLight)}} />
+                    </IconButton>
                     <Button 
                         type="submit"
-                        className={classNames(classes.formSearchButton, text.rem75)}
+                        className={classNames(classes.formSearchButton, text.rem75, display.none)}
                         variant="contained">
-                        { isLoading ? <CircularProgress className={classNames(text.textLight)} size={20} /> : 'Search' }
+                        { isLoading ? <CircularProgress className={classNames(text.textLight)} size={20} /> :'Search' }
                     </Button>
                 </Paper>
                 { !isUserNotFound && <Paper className={classNames(display.mt2, classes.px, classes.defaultBorderRadius, display.pt1, 

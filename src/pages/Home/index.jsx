@@ -76,7 +76,7 @@ const Home = () => {
                         type="submit" 
                         variant="contained"
                         className={classNames(classes.formSearchIconButton, text.rem75)}>
-                        <SearchIcon classes={{ root: classNames(text.textLight)}} />
+                        { isLoading ? <CircularProgress className={classNames(text.textLight)} size={20} /> : <SearchIcon classes={{ root: classNames(text.textLight)}} /> }
                     </IconButton>
                     <Button 
                         type="submit"

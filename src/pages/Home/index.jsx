@@ -55,12 +55,14 @@ const Home = () => {
                 </Button>
             </header>
             <main className={classNames(display.pt2)}>
-                <Paper component="form" className={classNames(display.alignCenter, display.flex, classes.px, 
+                <Paper component="form" className={classNames(display.alignCenter, display.flex, 
                     classes.defaultBorderRadius, classes.form, 'theme-background-color')}
                     onSubmit={submitHandler}>
-                    <IconButton>
-                        <SearchIcon classes={{ root: classNames(classes.blueText)}} />
-                    </IconButton>
+                    <Hidden smDown>
+                        <IconButton>
+                            <SearchIcon classes={{ root: classNames(classes.blueText)}} />
+                        </IconButton>
+                    </Hidden>
                     <input 
                         className={classNames(display.borderNone, display.flexGrow1, display.outlineNone, 
                         classes.lightText, bg.transparent, 'theme-text', classes.input)}

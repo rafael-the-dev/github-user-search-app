@@ -19,8 +19,7 @@ export const useStyles = makeStyles(theme => ({
         borderRadius: '14px !important',
     },
     form: {
-        paddingBottom: '8px !important',
-        paddingTop: '8px !important',
+        padding: '8px 2% 8px 3% !important',
         [theme.breakpoints.up('md')]: {
             paddingRight: '10px !important'
         }

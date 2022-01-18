@@ -103,7 +103,7 @@ const Home = () => {
                                     alt="profile"
                                 />
                             </Hidden>
-                            <div className={classNames(display.flex, display.flexColumn, display.ml1, 
+                            <div style={{ marginLeft: '1rem'}} className={classNames(display.flex, display.flexColumn, 
                                 responsive.mdMl0, responsive.mdRow, display.justifyBetween, display.w100)}>
                                 <div className={classNames(display.flex, display.flexColumn)}>
                                     <Typography 
